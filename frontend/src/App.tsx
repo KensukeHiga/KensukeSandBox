@@ -1,25 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Button, Container, Grid, Typography } from "@mui/material";
 
 function App() {
+  const featureList: string[] = ["TODO", "ユーザー情報", "GPT先生"];
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          EditX <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <Typography variant="h4" gutterBottom>
+        機能リスト画面
+      </Typography>
+      <Grid container spacing={3}>
+        {featureList.map((feature, index) => (
+          <Grid item key={index}>
+            <Button variant="contained" color="primary">
+              {feature}
+            </Button>
+          </Grid>
+        ))}
+      </Grid>
+    </Container>
   );
 }
 
