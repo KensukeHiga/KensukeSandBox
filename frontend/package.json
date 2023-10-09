@@ -144,5 +144,8 @@
     "presets": [
       "react-app"
     ]
+  },
+  "volta": {
+    "node": "20.8.0"
   }
 }
