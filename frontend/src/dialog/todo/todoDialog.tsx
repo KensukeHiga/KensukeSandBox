@@ -43,14 +43,14 @@ export const TodoDialog: FC<Props> = ({ open, onClose, todos }) => {
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({
     resolver: yupResolver(schema),
   });
 
   const handleFormSubmit = (data: any) => {
     // 実行処理を書く
-    alert(data);
+    alert(JSON.stringify(data, null, 2));
     onClose();
   };
 
@@ -66,7 +66,7 @@ export const TodoDialog: FC<Props> = ({ open, onClose, todos }) => {
       <DialogContent>
         <form onSubmit={handleSubmit(handleFormSubmit)}>
           {todos.map((todo, indedx) => (
-            <div key={indedx}>
+            <div key={indedx} style={{ marginTop: "10px" }}>
               <Controller
                 name={todo.name}
                 control={control}
@@ -74,8 +74,8 @@ export const TodoDialog: FC<Props> = ({ open, onClose, todos }) => {
                   <TextField
                     {...field}
                     label={todo.title}
-                    error={!!errors.name}
-                    helperText={errors.name?.message}
+                    error={!!errors[todo.name]}
+                    helperText={errors[todo.name]?.message}
                   />
                 )}
               />
@@ -84,7 +84,9 @@ export const TodoDialog: FC<Props> = ({ open, onClose, todos }) => {
         </form>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleSubmit(handleFormSubmit)}>登録</Button>
+        <Button disabled={!isValid} onClick={handleSubmit(handleFormSubmit)}>
+          登録
+        </Button>
         <Button onClick={onClose}>キャンセル</Button>
       </DialogActions>
     </Dialog>
