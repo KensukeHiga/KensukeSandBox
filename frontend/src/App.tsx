@@ -52,8 +52,8 @@ export const MainContent: FC<{}> = () => {
   const [open, setOpen] = useState<string>("");
   // Todo型の配列を作成
   const todos: Todo[] = [
-    { type: "string", title: "タイトル" },
-    { type: "string", title: "内容" },
+    { type: "string", title: "タイトル", name: "name" },
+    { type: "string", title: "内容", name: "content" },
   ];
 
   return (
@@ -82,7 +82,7 @@ export const MainContent: FC<{}> = () => {
           </Grid>
         ))}
       </Grid>
-      <TodoDialog open={open} close={() => setOpen("")} todos={todos} />
+      <TodoDialog open={open} onClose={() => setOpen("")} todos={todos} />
     </>
   );
 };
