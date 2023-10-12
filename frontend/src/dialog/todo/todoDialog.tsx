@@ -11,6 +11,7 @@ import React, { FC } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { TodoForm, postTodo } from "../../api/rest-api";
 
 // タイトルとフォームタイプを持つinterface
 export interface Todo {
@@ -44,13 +45,13 @@ export const TodoDialog: FC<Props> = ({ open, onClose, todos }) => {
     control,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm({
+  } = useForm<TodoForm>({
     resolver: yupResolver(schema),
   });
 
-  const handleFormSubmit = (data: any) => {
+  const handleFormSubmit = (data: TodoForm) => {
     // 実行処理を書く
-    alert(JSON.stringify(data, null, 2));
+    postTodo(data);
     onClose();
   };
 
