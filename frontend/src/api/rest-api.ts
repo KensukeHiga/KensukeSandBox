@@ -5,16 +5,30 @@ export type TodoForm = {
   content: string;
 };
 
+export type LoyaltyOut = {
+  discountRate: number;
+  message: string;
+};
+
+export type LoyaltyIn = {
+  rank: string;
+};
+
+export type Response = {
+  loyaltyOut: LoyaltyOut;
+  loyaltyIn: LoyaltyIn;
+};
+
 // フォームのデータをAPIにPOSTする
 export const postTodo = async (todoForm: TodoForm) => {
   try {
-    const response = await axios.post("/api/todos", { ...todoForm });
-    if (response.status === 200) {
-      alert("データが正常に送信されました！");
-    } else {
-      // エラーをスローする。
-      throw new Error();
-    }
+    const response = await axios
+      .post<Response>("/api/todos", { ...todoForm })
+      .then((res) => {
+        return res.data;
+      });
+    // responseをJson形式でalertで表示する。
+    alert(JSON.stringify(response, null, 2));
   } catch (error) {
     // error内容をalertで表示する。
     alert(error);
