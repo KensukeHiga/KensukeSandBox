@@ -5,15 +5,25 @@ export type TodoForm = {
   content: string;
 };
 
-export type Rersponse = {
+export type LoyaltyOut = {
+  discountRate: number;
   message: string;
+};
+
+export type LoyaltyIn = {
+  rank: string;
+};
+
+export type Response = {
+  loyaltyOut: LoyaltyOut;
+  loyaltyIn: LoyaltyIn;
 };
 
 // フォームのデータをAPIにPOSTする
 export const postTodo = async (todoForm: TodoForm) => {
   try {
     const response = await axios
-      .post<Response>("/api/todos", { ...todoForm })
+      .post<Response>("/api/todos/kogito-server", { ...todoForm })
       .then((res) => {
         return res.data;
       });
